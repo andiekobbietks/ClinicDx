@@ -31,6 +31,13 @@ export const clinicDxCdsAlertBanner = getAsyncLifecycle(
   options,
 );
 
+// ── Patient vitals history ─────────────────────────────────────────
+
+export const clinicDxVitalsHistory = getAsyncLifecycle(
+  () => import('./vitals/vitals-history.component'),
+  options,
+);
+
 // ── CDS ────────────────────────────────────────────────────────────
 
 export const clinicDxCdsButton = getAsyncLifecycle(
