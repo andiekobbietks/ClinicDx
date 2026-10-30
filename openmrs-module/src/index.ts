@@ -24,6 +24,13 @@ export function startupApp() {
   defineConfigSchema(moduleName, configSchema);
 }
 
+// ── Patient chart safety banner ────────────────────────────────────
+
+export const clinicDxCdsAlertBanner = getAsyncLifecycle(
+  () => import('./alerts/cds-alert-banner.component'),
+  options,
+);
+
 // ── CDS ────────────────────────────────────────────────────────────
 
 export const clinicDxCdsButton = getAsyncLifecycle(

@@ -5,6 +5,12 @@
   },
   "extensions": [
     {
+      "name": "clinicdx-cds-alert-banner",
+      "slot": "patient-header-slot",
+      "component": "clinicDxCdsAlertBanner",
+      "order": 1
+    },
+    {
       "name": "clinicdx-cds-action-button",
       "slot": "action-menu-patient-chart-items-slot",
       "component": "clinicDxCdsButton",
