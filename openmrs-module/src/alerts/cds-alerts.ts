@@ -29,15 +29,12 @@ function normalise(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-function allergyEntries(patient: PatientFull): Array<{ allergen: string; critical: boolean }> {
+function allergyEntries(patient: PatientFull): Array<{ allergen: string }> {
   return (patient.person?.attributes ?? [])
     .filter((attribute) => /allerg/i.test(attribute.attributeType?.display ?? ''))
     .map((attribute) => {
       const allergen = valueText(attribute.value) || attribute.display || '';
-      return {
-        allergen: allergen.trim(),
-        critical: /anaphylaxis|anaphylactic|severe|life.?threatening/i.test(allergen),
-      };
+      return { allergen: allergen.trim() };
     })
     .filter((entry) => entry.allergen.length > 1);
 }
@@ -63,7 +60,7 @@ export function deriveCdsAlerts(patient: PatientFull, encounters: Encounter[]): 
     if (!allergen) continue;
     const matchedMedication = medicationMentions.find((medication) => {
       const candidate = normalise(medication);
-      return candidate === allergen || candidate.includes(allergen) || allergen.includes(candidate);
+      return candidate === allergen;
     });
     if (matchedMedication) {
       alerts.push({
@@ -80,7 +77,7 @@ export function deriveCdsAlerts(patient: PatientFull, encounters: Encounter[]): 
     const concept = obs.concept?.display ?? obs.display ?? 'Laboratory test';
     const value = valueText(obs.value);
     const explicitStatus = typeof obs.value === 'object'
-      ? String(obs.value.status ?? obs.value.resultStatus ?? obs.value.orderStatus ?? '')
+      ? String(obs.value.status ?? obs.value.resultStatus ?? obs.value.orderStatus ?? obs.value.display ?? '')
       : '';
     const isExplicitlyPending = PENDING.test(explicitStatus.trim());
     if (LAB_TERMS.test(concept) && isExplicitlyPending) {
