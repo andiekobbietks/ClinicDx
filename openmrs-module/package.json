@@ -49,7 +49,8 @@
     "react-i18next": ">=11.x || >=16.x"
   },
   "dependencies": {
-    "@carbon/react": "^1.37.0"
+    "@carbon/react": "^1.37.0",
+    "recharts": "^2.15.4"
   },
   "overrides": {
     "webpack": "5.99.9"
