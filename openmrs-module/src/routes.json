@@ -11,6 +11,12 @@
       "order": 1
     },
     {
+      "name": "clinicdx-vitals-history",
+      "slot": "patient-chart-dashboard-slot",
+      "component": "clinicDxVitalsHistory",
+      "order": 2
+    },
+    {
       "name": "clinicdx-cds-action-button",
       "slot": "action-menu-patient-chart-items-slot",
       "component": "clinicDxCdsButton",
